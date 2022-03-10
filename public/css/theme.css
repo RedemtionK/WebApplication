@@ -1,0 +1,74 @@
+
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Sansita+Swashed:wght@300;600&family=Smooch+Sans:wght@700&family=Syne+Mono&display=swap');
+
+.bg-light{
+background-color: rgba(207, 6, 6, 0.671) !important;
+-webkit-box-shadow: 8px 20px 26px 7px rgba(0,0,0,0.75);
+-moz-box-shadow: 8px 20px 26px 7px rgba(0,0,0,0.75);
+box-shadow: 8px 20px 26px 7px rgba(0,0,0,0.75);
+}
+.navbar-light .navbar-brand{
+    color: rgb(255, 255, 255) ;
+    font-family: 'Syne Mono', monospace;
+}
+.nav-link{
+    color: rgb(250, 250, 3) !important;
+    font-family: 'Sansita Swashed', cursive;
+
+}
+.nav-link:hover{
+    color: rgb(0, 255, 242) !important;
+    
+}
+html, body{
+    background: rgb(0, 0, 0); /* fallback color */
+    background: linear-gradient( to bottom, rgb(241, 241, 241), rgb(0, 0, 0));
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+ tr :nth-child(odd){
+background-color: rgb(228, 253, 4) !important;
+
+}
+h1,h2,h3,h4,h5,h6{
+    color:rgb(197, 80, 2);
+    text-shadow: 2px 2px #747474;
+    font-family: 'Smooch Sans', sans-serif;
+}
+a {
+    color: brown !important;
+}
+
+a:hover{
+    color: orchid  !important;
+}
+
+.btn-primary{
+    color:rgb(197, 80, 2);
+    background-color: aliceblue;
+    box-shadow: 10px 5px rgba(255, 255, 255, 0.75);
+}
+.btn-primary:hover{
+ background-color: rgb(0, 255, 55);
+ color: #000;
+ box-shadow: -10px -5px rgba(0, 255, 55);
+ 
+ 
+}
+fieldset legend {
+color: rgb(228, 253, 4);
+text-shadow: 2px 2px #ffa600;
+font-family: 'League Gothic', sans-serif;
+padding-top: 10px;
+padding-bottom: 20px;
+
+}
+hr {
+    background-color: azure;
+}
+fieldset {
+    color: azure;
+}
