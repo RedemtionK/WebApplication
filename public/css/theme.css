@@ -29,10 +29,9 @@ html, body{
     height: 100%;
     overflow: auto;
 }
- tr :nth-child(odd){
-background-color: rgb(228, 253, 4) !important;
-
-}
+ table tr:nth-child(odd) td, table tr:nth-child(odd) th{
+    background-color: rgb(228, 253, 4) !important;
+} 
 h1,h2,h3,h4,h5,h6{
     color:rgb(197, 80, 2);
     text-shadow: 2px 2px #747474;
