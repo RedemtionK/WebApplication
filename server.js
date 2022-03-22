@@ -4,7 +4,7 @@
 * of this assignment has been copied manually or electronically from any other source
 * (including 3rd party web sites) or distributed to other students.
 *
-* Name: Klaus Cepani    Student ID: 157246208 Date: 3/09/2020
+* Name: Klaus Cepani    Student ID: 157246208 Date: 3/22/2022
 *
 * Online (Heroku) Link: https://warm-hollows-70854.herokuapp.com/
 *
@@ -13,6 +13,7 @@
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
 const path = require("path");
+const exphbs = require("express-handlebars");
 const userMod = require("./modules/collegeData.js");
 var app = express();
 app.use(express.static("public"));
@@ -25,22 +26,65 @@ next();
 })
 
 app.use(express.urlencoded({extended: true}));
+app.use(function (req, res, next) {
+    let route = req.path.substring(1);
+    app.locals.activeRoute =
+      "/" +
+      (isNaN(route.split("/")[1])
+        ? route.replace(/\/(?!.*)/, "")
+        : route.replace(/\/(.*)/, ""));
+    next();
+  });
+  
+  app.engine(
+    ".hbs",
+    exphbs.engine({
+      extname: ".hbs",
+      helpers: {
+        navLink: function (url, options) {
+          return (
+            "<li" +
+            (url == app.locals.activeRoute
+              ? ' class="nav-item active" '
+              : ' class="nav-item" ') +
+            '><a class="nav-link" href="' +
+            url +
+            '">' +
+            options.fn(this) +
+            "</a></li>"
+          );
+        },
+        equal: function (lvalue, rvalue, options) {
+            if (arguments.length < 3)
+            throw new Error("Handlebars Helper equal needs 2 parameters");
+            if (lvalue != rvalue) {
+            return options.inverse(this);
+            } else {
+            return options.fn(this);
+            }
+           }
+      },
+    })
+  );
+  
+  app.set("view engine", ".hbs");
 
+   
 
 
 app.get("/students", (req,res)=>{
 
     if(req.query.course){
-        userMod.getStudentsByCourse(req.query.course).then(students=>{
-            res.json(students); // or res.send() would work here too
-            console.log(students.length);
+        userMod.getStudentsByCourse(req.query.course).then(data=>{
+           res.render("students",{students: data});
+            
         }).catch(err=>{
            
-            res.json({message:"no results"}); // show the error to the user
+            res.json({message:"no results"});
         })
     }else{
-        userMod.getAllStudents().then(students=>{
-            res.json(students); // or res.send() would work here too
+        userMod.getAllStudents().then(data=>{
+            res.render("students",{students: data}); // or res.send() would work here too
         }).catch(err=>{
             res.senc({message:"no results"}); // show the error to the user
         });
@@ -56,46 +100,61 @@ app.get("/tas", (req,res)=>{
    });
 
    app.get("/courses", (req,res)=>{
-    userMod.getCourses().then(courses=>{
-        res.json(courses); // or res.send() would work here too
+    userMod.getCourses().then(data=>{
+        res.render("courses", {courses: data}); // or res.send() would work here too
     }).catch(err=>{
-        res.json({message:"no results"}); // show the error to the user
+        res.render("courses", {message: "no results"}); // show the error to the user
     });
 });
 
 app.get("/student/:num", (req,res)=>{
-    //res.send("TODO: GET User By Id: " + req.params.id);
-    userMod.getStudentByNum(req.params.num).then(user=>{
-        res.json(user);
+    
+    userMod.getStudentByNum(req.params.num).then(data=>{
+        res.render("student", { student: data });
     }).catch(err=>{
         
-        res.json({message:"no results"}); // show the error to the user
+        res.json({message:"no results"}); 
     });
 });
 
+app.get("/course/:id", (req,res)=>{
+    
+    userMod.getCourseById(req.params.id).then(data=>{
+        res.render("course", {course: data});
+    }).catch(err=>{
+        
+        res.json({message:"no results"}); 
+    });
+});
+
+
+
 app.get("/", (req,res)=>{
-    res.sendFile(path.join(__dirname, "/views/home.html"));
+    //res.sendFile(path.join(__dirname, "/views/home.html"));
+    res.render("home");
     
 });
 
 app.get("/htmlDemo", (req,res)=>{
-    res.sendFile(path.join(__dirname, "/views/htmlDemo.html"));
+    //res.sendFile(path.join(__dirname, "/views/htmlDemo.html"));
+    res.render("htmlDemo");
 });
 
 app.get("/home", (req,res)=>{
-    res.sendFile(path.join(__dirname, "/views/home.html"));
-});
-app.get("/easter", (req,res)=>{
-    res.sendFile(path.join(__dirname, "/views/easteregg.html"));
+    //res.sendFile(path.join(__dirname, "/views/home.html"));
+    res.render("home");
 });
 
+
 app.get("/students/add", (req,res)=>{
-    res.sendFile(path.join(__dirname, "/views/addStudent.html"));
+    //res.sendFile(path.join(__dirname, "/views/addStudent.html"));
+    res.render("addStudent")
 });
 
 app.get("/about", (req,res)=>{ 
     
-    res.sendFile(path.join(__dirname, "/views/about.html"));
+    //res.sendFile(path.join(__dirname, "/views/about.html"));
+    res.render("about");
    
 });
 app.post("/students/add", (req,res)=>{
@@ -108,9 +167,14 @@ app.post("/students/add", (req,res)=>{
     });
     
 });
+app.post("/student/update", (req, res) => {
+    req.body.TA = (req.body.TA) ? true : false;  
+    userMod.updateStudent(req.body);
+    res.redirect("/students");
+   });
 
 app.use((req,res,next)=>{
-    res.status(404).sendFile(path.join(__dirname, "/views/route.html"))// .sendFile(), .json(), etc or .end() (sends nothing back)
+    res.status(404).render("route");// .sendFile(), .json(), etc or .end() (sends nothing back)
 });
 
 userMod.initialize().then(()=>{

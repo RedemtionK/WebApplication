@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row">
+    <main class="col-md-12">
+      <br />
+      <h1>
+        First table
+      </h1>
+      <br />
+
+      <hr />
+      <table class="table table-dark table-hover">
+        <caption>Monthly savings</caption>
+        <tr><th>Month</th><td>Savings</td><td>Expense</td></tr>
+        <tr><th>January</th><td>100</td><td>1000</td></tr>
+        <tr><th>February</th><td>200</td><td>1500</td></tr>
+        <tr><th>Sum</th><td>300</td><td>2500</td></tr>
+      </table>
+
+      <h1>
+        Second table
+      </h1>
+      <br />
+
+      <table class="table table-dark table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">SONG</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Video</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              <audio controls>
+                <source
+                  src="https://pat-crawford-sdds.netlify.app/shared/winter-2022/web700/A3/sample-audio.mp3"
+                  type="audio/mp3"
+                />
+                Your browser does not support the audio element.
+              </audio>
+            </td>
+            <td rowspan="2">
+              <img
+                src="https://images.pexels.com/photos/7341160/pexels-photo-7341160.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                alt="Italian Trulli"
+                style="width: 250px; height: 200px"
+              />
+            </td>
+            <td>
+              Test 2
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>
+              <audio controls>
+                <source
+                  src="https://pat-crawford-sdds.netlify.app/shared/winter-2022/web700/A3/sample-audio.ogg"
+                  type="audio/mpeg"
+                />
+                Your browser does not support the audio element.
+              </audio>
+            </td>
+            <td rowspan="2">
+              Test
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Testing 3</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+      <hr />
+      <h4>List of My Courses</h4>
+
+      <ul>
+        <li>OPS705</li>
+        <li>Sql710</li>
+        <li>Jav745</li>
+        <li>WEB700
+          <ol>
+            <li>Assigmet3</li>
+            <li>Quiz3</li>
+            <li>No Middterm</li>
+          </ol>
+        </li>
+        <li>DES720</li>
+        <li><audio
+            src="https://pat-crawford-sdds.netlify.app/shared/winter-2022/web700/A3/sample-audio.mp3"
+            controls
+          ></audio>
+        </li>
+      </ul>
+
+      <p>This are my subjects for this semester </p>
+
+      <hr />
+      <h5>Audio</h5>
+
+      <audio
+        src="https://ia800607.us.archive.org/15/items/music_for_programming/music_for_programming_1-datassette.mp3"
+        controls
+      ></audio>
+      <p>Music that i like</p>
+      <hr />
+
+      <button id="myBtn" style="float: right">
+        Yuppi Fast Travel
+        <script>
+          document.getElementById("myBtn").addEventListener("click",
+          myFunction); function myFunction() { window.location.href = "/"; }
+        </script>
+      </button>
+
+      <h5>Video Section</h5>
+
+      <video
+        width="200"
+        height="200"
+        src="https://pat-crawford-sdds.netlify.app/shared/winter-2022/web700/A3/sample-video.ogg"
+        controls
+      ></video>
+
+      <p>The earth rotation is visible in this video </p>
+
+    </main>
+  </div>
+</div>
