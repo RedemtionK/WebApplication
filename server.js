@@ -251,6 +251,7 @@ app.post("/students/add", (req,res)=>{
       userMod.addStudent(req.body).then(()=>{
         res.redirect("/students");
         }).catch((err)=>{
+            console.log(err);
         
         res.json("Error");
     });
